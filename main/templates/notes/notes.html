@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title%}NoteStorage | Записи{% endblock %}
+
+{% block content%}
+    <section class="container drafts-container">
+        <h1 class="title-of-drafts">Все заметки</h1>
+        <div class="categories">
+            <h2 class="categories-title">Категории</h2>
+            <div class="categories-block">
+                <a class="category box category-target active" data-category="all">Все</a>
+                {% for value, label in categories %}
+                <a class="category box category-target" data-category="{{ value }}" id="cat-{{ value }}">
+                    {{ label }}
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="drafts" id="notes-container">
+            {% for note in notes %}
+            <div class="draft item category-{{ note.category }}" draggable="true" id="note-{{ note.id }}">
+                <div class="header-of-draft">
+
+
+                    <form action="{% url 'notes:edit' note.id %}" method="post" class="redact-form" draggable="false">
+                        {% csrf_token %}
+                        <button title="Редактировать" type="submit" class="redact-note" draggable="false">
+                            <div class="redact" draggable="false"></div>
+                        </button>
+                    </form>
+                    
+                    <h2 class="title-of-draft">{{ note.title|striptags|truncatechars:15 }}</h2>
+                    <form action="{% url 'notes:delete' note.id %}" method="post" class="delete-form">
+                        {% csrf_token %}
+                        <button title="Удалить" type="submit" class="bin-of-draft" draggable="false">
+                            <div class="trash" draggable="false"></div>
+                        </button>
+                    </form>
+                </div>
+                <div class="text-of-draft-block">
+                    <p class="text-of-draft">{{ note.content|striptags|truncatechars:100 }}</p>
+                </div>
+                <div class="draft-footer">
+                    <p>Создано: {{ note.created_at|date:"d.m.Y H:i" }}</p>
+                    <p>Изменено: {{ note.updated_at|date:"d.m.Y H:i" }}</p>
+                </div>
+                
+            </div>
+            {% empty %}
+            <p class="empty-message">У вас пока нет заметок.</p>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock%}

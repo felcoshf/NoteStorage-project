@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title%}NoteStorage | Главная{% endblock %}
+
+{% block content%}
+    <section class="container">
+        <div class="note-form">
+            <form action="{% url 'notes:create' %}" method="POST" class="create-note-form" id="note-form">
+                {% csrf_token %}
+                <div class="note-form-div">
+                    <input id="note-title" name="title" class="title-input" type="text" placeholder="Название заметки"
+                        required>
+                    <div id="editor-container" class="editor-container"></div>
+                    <input type="hidden" name="content" id="hidden-content-input">
+                    {% if user.is_authenticated %}
+                    <button class="submit-btn-note">Создать</button>
+                    {% else %}
+                    <button id="login-to-create" type="submit" class="submit-btn-note">Войти и создать</button>
+                    {% endif %}
+                </div>
+                <div class="export">
+                    <button type="button" id="download-word" class="export-word">Экспорт в Word</button>
+                </div>
+            </form>
+        </div>
+    </section>
+{% endblock%}

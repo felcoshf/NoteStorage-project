@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}NoteStorage | Редактирование{% endblock %}
+
+{% block content %}
+    <section class="container">
+        <div>
+            <h1 class="title-of-drafts">Редактирование заметки</h1>
+            <form class="note-form" action="{{ form_action }}" method="post" id="note-form">
+                {% csrf_token %}
+                <p>
+                    <input type="text" name="{{ form.title.name }}" id="{{ form.title.id_for_label }}" class="title-input" value="{{ initial_title }}" required>
+                </p>
+                <div id="editor-container" class="editor-container"></div>
+                <input type="hidden" name="{{ form.content.name }}" id="{{ form.content.id_for_label }}" value="{{ initial_content }}">
+                {{ initial_content|json_script:"initial-content" }}
+                    <button class="submit-btn-note" type="submit">{{ submit_label }}</button>
+                    <form action="{% url 'notes:list' %}" method="get">
+                        <button type="submit" class="cancel-btn">Отмена</button>
+                    </form>
+                <div class="export">
+                    <button type="button" id="download-word" class="export-word">Экспорт в Word</button>
+                </div>
+            </form>
+        </div>
+    </section>
+{% endblock %}

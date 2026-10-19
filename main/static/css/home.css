@@ -1,0 +1,183 @@
+.note-form-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    gap: 10px;
+}
+
+.title-input {
+    font-size: 20px;
+    width: 500px;
+    padding: 20px;
+    border-color: #264653;
+    border-radius: 10px;
+}
+
+.submit-btn-note {
+    width: 200px;
+    background-color: #264653;
+    color: #ffffff;
+    border: none;
+    padding: 14px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.submit-btn-note:hover {
+    background-color: #1d353f;
+}
+
+.editor-container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    width: 600px;
+    max-width: 100%;
+}
+
+.editor-container .ql-toolbar {
+    height: auto;
+    background-color: #ffffff;
+    border-radius: 10px 10px 0 0;
+}
+
+.editor-container .ql-container {
+    border: 2px solid #264653;
+    border-radius: 0 0 10px 10px;
+    height: auto;
+}
+
+.editor-container .ql-editor {
+    min-height: 600px;
+    max-height: 600px;
+    padding: 12px;
+    width: auto;
+    border: 2px solid #1d353f;
+    border-radius: 10px;
+}
+
+.note-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    gap: 10px;
+}
+
+.ql-toolbar {
+    height: 60px;
+    background-color: #ffffff;
+    border-radius: 20px;
+}
+
+.ql-header {
+    height: 50px !important;
+}
+
+/* Изменение названий заголовков на русский язык */
+
+.ql-snow .ql-picker.ql-header .ql-picker-item::before {
+    content: 'Обычный текст' !important;
+}
+
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value="1"]::before {
+    content: 'Заголовок 1' !important;
+}
+
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value="2"]::before {
+    content: 'Заголовок 2' !important;
+}
+
+.ql-snow .ql-picker.ql-header .ql-picker-item[data-value="3"]::before {
+    content: 'Заголовок 3' !important;
+}
+
+.ql-snow .ql-picker.ql-header .ql-picker-label::before {
+    content: 'Обычный текст' !important;
+}
+
+.ql-snow .ql-picker.ql-header .ql-picker-label[data-value="1"]::before {
+    content: 'Заголовок 1' !important;
+}
+
+.ql-snow .ql-picker.ql-header .ql-picker-label[data-value="2"]::before {
+    content: 'Заголовок 2' !important;
+}
+
+.ql-snow .ql-picker.ql-header .ql-picker-label[data-value="3"]::before {
+    content: 'Заголовок 3' !important;
+}
+
+.export {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 300px;
+    height: 100px;
+    background-color: #264653;
+    border-radius: 10px;
+    margin: 0 auto;
+    margin-bottom: 50px;
+}
+
+.export-word {
+    width: 100px;
+    height: 50px;
+    background-color: #3f63da;
+    color: #ffffff;
+    border: none;
+    padding: 14px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.export-word:hover {
+    background-color: #4a6cdb;
+}
+
+.dates {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px;
+    gap: 20px;
+    border-radius: 20px;
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+}
+
+.cancel-btn {
+    width: 100px;
+    background-color: #b43a14;
+    color: #ffffff;
+    border: none;
+    padding: 14px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+@media (max-width: 770px) {
+    .editor-container {
+        width: 400px;
+    }
+    .editor-container .ql-editor {
+        min-height: 400px;
+        max-height: 400px;
+    }
+    .title-input {
+        width: 100%;
+    }
+}
+
+@media (max-width: 500px) {
+    .editor-container {
+        width: 100%;
+    }
+    .editor-container .ql-editor {
+        min-height: 200px;
+        max-height: 200px;
+    }
+
+    .ql-toolbar {
+        height: 100px;
+    }
+}

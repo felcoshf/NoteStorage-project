@@ -1,0 +1,120 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/drafts.css' %}">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <section class="wrapper">
+        <header>
+            <div class="container header-wrapper">
+                <div class="logo-and-nav">
+                    <a href="{% url 'main:first_page' %}" class="logo-name">
+                        <img src="{% static 'img/logo.jpg' %}" class="logo">
+                        <h1>NoteStorage</h1>
+                    </a>
+                    {% if user.is_authenticated %}
+                    <div class="burger-menu" id="burger">
+                        <img src="{% static 'img/burger-menu.png' %}" class="logo">
+                    </div>
+                    <nav class="dropdown" id="dropdown">
+                        <div class="dropdown-list">
+                            <a href="{% url 'main:first_page' %}">Главная</a>
+                            <a href="{% url 'notes:list' %}">Все заметки</a>
+                            <a href="{% url 'drafts:list' %}">Корзина</a>
+                        </div>
+                    </nav>
+                    <div class="nav-list">
+                        <a href="{% url 'main:first_page' %}">Главная</a>
+                        <a href="{% url 'notes:list' %}">Все заметки</a>
+                        <a href="{% url 'drafts:list' %}">Корзина</a>
+                    </div>
+                    {% endif %}
+                </div>
+                {% if user.is_authenticated %}
+                <div class="user-info-block">
+                    <div class="user-info">
+                        <p>{{user.login}}</p>
+                    </div>
+                    <div class="auth-buttons">
+                        <form action="{% url 'logout' %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit">Выйти</button>
+                        </form>
+                    </div>
+                </div>
+                {% else %}
+                <div class="auth-buttons" id="auth-buttons">
+                    <button id="auth-btn">Войти</button>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="modal" id="authModal">
+                <div class="modal-dialog">
+                    <form action="{% url 'login' %}" method="post" class="custom-form">
+                        {% csrf_token %}
+                        <div class="btn-close-block">
+                            <button type="button" class="btn-close">Закрыть</button>
+                        </div>
+                        <h1>Авторизация</h1>
+                        <div class="form-group">
+                            <label>Логин</label>
+                            <input type="text" name="username" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Пароль</label>
+                            <input type="password" name="password" required>
+                        </div>
+                        <button type="submit" class="submit-btn">Войти</button>
+                    </form>
+                </div>
+            </div>
+        </header>
+
+        <main>
+        {% block content %}
+    
+        {% endblock %}
+        </main>
+
+        <footer>
+            <div class="footer-block container">
+                <div class="footer-info">
+                    <p>NoteStorage - онлайн заметки с форматированием прямо в вашем браузере.</p>
+                </div>
+                {% if user.is_authenticated %}
+                <div class="links">
+                    <a href="{% url 'main:first_page' %}">Главная</a>
+                    <a href="{% url 'notes:list' %}">Все заметки</a>
+                    <a href="{% url 'drafts:list' %}">Корзина</a>
+                </div>
+                {% else %}
+                <div class="footer-info-before-auth">
+                    <p>Зарегистрируйтесь, чтобы получить доступ ко всем функциям сайта.</p>
+                </div>
+                {% endif %}
+            </div>
+        </footer>
+    </section>
+    
+        <script src="{% static 'js/burger-menu.js' %}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
+        <script src="{% static 'js/script-format.js' %}"></script>
+        <script src="{% static 'js/script-word.js' %}"></script>
+        <script src="{% static 'js/script-word-edit.js' %}"></script>
+        <script src="{% static 'js/script-drag-and-drop.js' %}"></script>
+        <script src="{% static 'js/to-edit.js' %}"></script>
+        <script src="{% static 'js/auth-and-create.js' %}"></script>
+        <script type="module"> import * as docx from "https://cdn.jsdelivr.net/npm/docx@9.8.1/+esm";window.docx = docx;</script>
+        <script src="{% static 'js/script.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

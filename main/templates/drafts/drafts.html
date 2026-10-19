@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}NoteStorage | Удалённые{% endblock %}
+
+{% block content %}
+<section class="container drafts-container">
+    <h1 class="title-of-drafts">Удалённые заметки</h1>
+    <div class="drafts" id="notes-container">
+        {% for note in notes %}
+        <div class="draft item" id="note-{{ note.id }}">
+            <div class="header-of-draft">
+                <form action="{% url 'notes:restore' note.id %}" method="post" class="restore-form" draggable="false">
+                    {% csrf_token %}
+                    <button title="Восстановить" type="submit" class="remove-draft" draggable="false">
+                        <div class="remove" draggable="false"></div>
+                    </button>
+                </form>
+                <div class="title-of-draft-block">
+                    <h2 class="title-of-draft">{{ note.title|striptags|truncatechars:15 }}</h2>
+                </div>
+                <form action="{% url 'notes:delete_forever' note.id %}" method="post" class="delete-form" draggable="false">
+                    {% csrf_token %}
+                    <button title="Удалить навсегда" type="submit" class="bin-of-draft" draggable="false">
+                        <div class="trash" draggable="false"></div>
+                    </button>
+                </form>
+            </div>
+            <div class="text-of-draft-block">
+                <p class="text-of-draft">{{ note.content|striptags|truncatechars:100 }}</p>
+            </div>
+            <div class="draft-footer">
+                <p>Удалено: {{ note.deleted_at|date:"d.m.Y H:i" }}</p>
+            </div>
+        </div>
+        {% empty %}
+        <p class="empty-message">Корзина пуста.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
